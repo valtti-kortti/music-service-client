@@ -1,0 +1,473 @@
+:root {
+  --bg-dark: #121212;
+  --bg-panel: #1f1f1f;
+  --bg-item: #141414;
+  --accent: #00bcd4;
+  --accent-hover: #0097a7;
+  --text-primary: #f5f5f5;
+  --text-secondary: #a0a0a0;
+  --radius: 10px;
+}
+
+/* ============== ОБОЛОЧКА ================== */
+
+.room-page {
+  font-family: "Inter", system-ui, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  height: 100vh;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column; /* header + content */
+}
+
+/* ============== HEADER ================== */
+
+.room-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.room-header-left,
+.room-header-right {
+  flex: 0 0 auto;
+}
+
+.room-header-center {
+  flex: 1;
+  text-align: center;
+}
+
+.room-roomid {
+  font-size: 11px;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.room-roomid--copyable {
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.2s ease;
+}
+
+.room-roomid--copyable:hover {
+  opacity: 0.7;
+}
+
+.copied-popup {
+  margin-left: 8px;
+  font-size: 12px;
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+.room-now {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.room-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.room-status {
+  font-size: 12px;
+  background: var(--bg-panel);
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+/* ============== CONTENT ================== */
+
+.room-content {
+  flex: 1;
+  min-height: 0;       /* важно */
+  display: flex;
+  gap: 16px;
+}
+
+/* ================= LEFT BLOCK =============== */
+
+.room-left {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  flex-shrink: 0;
+  height: 100%;        /* делит высоту вместе с room-content */
+  gap: 12px;
+}
+
+/* Плеер */
+
+.room-current {
+  background: var(--bg-panel);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.room-current h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.player-placeholder {
+  height: 180px;
+  border-radius: 8px;
+  background: #000;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.track-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.track-times {
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  color: var(--text-secondary);
+}
+
+.track-extra {
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+.progress-bar {
+  height: 6px;
+  background: #333;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, #ff4d4f, #ff9800);
+  transition: width 0.2s linear;
+}
+
+.player-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Кнопки */
+
+button {
+  background: var(--accent);
+  border: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  color: var(--text-primary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background: var(--accent-hover);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ================= SEARCH BELOW PLAYER =============== */
+
+.room-search-wrapper {
+  background: var(--bg-panel);
+  border-radius: var(--radius);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.room-search {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  background: #181818;
+  color: var(--text-primary);
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+
+.search-results {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto; /* локальный скролл результатов */
+
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;
+}
+
+.search-results h3 {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.search-error {
+  color: #ff4d4f;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.search-info {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 8px;
+}
+
+.search-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+  padding: 0 12px;
+  background: var(--bg-item);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+
+.search-item:hover {
+  background: #1e1e1e;
+}
+
+.search-title {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.search-title--scrollable {
+}
+
+.search-title-inner {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+.search-item:hover .search-title--scrollable .search-title-inner {
+  animation: scroll-text 6s linear forwards;
+}
+
+
+@keyframes scroll-text {
+  0%, 10% {
+    transform: translateX(0);
+  }
+  90%, 100% {
+    transform: translateX(var(--scroll-distance, 0));
+  }
+}
+
+.search-meta {
+  flex-shrink: 0;
+  margin-left: 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* ================= QUEUE ================= */
+
+.room-queue-panel {
+  background: var(--bg-panel);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
+  flex: 1;          /* забирает всё, что осталось под плеером */
+  min-height: 0;    /* критично для flex + overflow */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* скролл только внутри .queue-scroll */
+}
+
+.room-queue-panel h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+.queue-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+
+  /* можно спрятать полосу */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.queue-scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.queue-empty {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.queue-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.queue-list::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.queue-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+  padding: 0 12px;
+  background: var(--bg-item);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.queue-title {
+  flex: 1;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+.queue-delete-btn {
+  margin-left: 8px;
+  padding: 2px 8px;
+  font-size: 11px;
+  border-radius: 999px;
+  border: 1px solid #444;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.queue-item:hover .queue-meta,
+.queue-item:hover .queue-title {
+  color: #ff4d4f;
+}
+
+
+.queue-title::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 32px;
+  background: linear-gradient(to right, transparent, var(--bg-item));
+  pointer-events: none;
+}
+
+.queue-meta {
+  flex-shrink: 0;
+  margin-left: 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.progress-bar {
+  position: relative;
+  height: 6px;
+  background: #333;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, #ff4d4f, #ff9800);
+  transition: width 0.2s linear;
+}
+
+/* Кружочек-ползунок */
+.progress-bar-knob {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  pointer-events: none; /* чтобы drag ловился на баре, а не на кружке */
+}
+
