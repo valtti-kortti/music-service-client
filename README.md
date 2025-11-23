@@ -1,19 +1,138 @@
-# README
 
-## About
+```markdown
+# Music Room Desktop Client 🎧
 
-This is the official Wails React template.
+## Описание
 
-You can configure the project by editing `wails.json`. More information about the project settings can be found
-here: https://wails.io/docs/reference/project-config
+**Music Room** — это десктоп-клиент на Wails, позволяющий пользователям:
 
-## Live Development
+- Создавать музыкальные комнаты
+- Подключаться к существующим
+- Добавлять видео в очередь
+- Управлять воспроизведением
+- Синхронно слушать музыку через YouTube
+- Видеть текущий прогресс и перематывать трек
+- Работать через WebSocket с сервером
 
-To run in live development mode, run `wails dev` in the project directory. This will run a Vite development
-server that will provide very fast hot reload of your frontend changes. If you want to develop in a browser
-and have access to your Go methods, there is also a dev server that runs on http://localhost:34115. Connect
-to this in your browser, and you can call your Go code from devtools.
+Клиент полностью автономный и работает как самостоятельное приложение (Windows/Linux/macOS), используя встроенный веб-интерфейс.
 
-## Building
+---
 
-To build a redistributable, production mode package, use `wails build`.
+## Серверная часть
+
+Это приложение является клиентом для серверного проекта:
+
+👉 [Server repository](https://github.com/valtti-kortti/music-service-server)
+
+> **Важно:** Клиент не работает без запущенного backend-сервиса.
+
+---
+
+## 🚀 Запуск в режиме разработки
+
+### Убедись, что у тебя установлены:
+
+- Go 1.20+
+- Node.js 18+
+- Wails CLI
+
+### Установка Wails:
+
+```bash
+go install github.com/wailsapp/wails/v2/cmd/wails@latest
+```
+
+### Запуск приложения:
+
+```bash
+wails dev
+```
+
+Клиент автоматически пересобирает фронтенд и подключается к серверу по адресу, указанному через переменную окружения:
+
+```bash
+WAILS_API_BASE_URL=http://localhost:8080 wails dev
+```
+
+---
+
+## 🛠 Переменные окружения
+
+Клиент получает базовый URL API из переменной:
+
+```bash
+WAILS_API_BASE_URL
+```
+
+### Пример настройки:
+
+#### Linux / Mac
+```bash
+WAILS_API_BASE_URL=http://192.168.1.50:8080 wails dev
+```
+
+#### Windows (PowerShell)
+```powershell
+$env:WAILS_API_BASE_URL="http://192.168.1.50:8080"
+wails dev
+```
+
+---
+
+## 📦 Сборка приложения
+
+Для продакшн-сборки:
+
+```bash
+wails build
+```
+
+Итоговый бинарный файл появится в:
+
+```
+./build/bin
+```
+
+### Запуск напрямую:
+
+- **Windows:** `Music Room.exe`
+- **macOS:** `Music Room.app`
+- **Linux:** `Music Room`
+
+---
+
+## 🌐 Запуск готового клиента с указанием своего API
+
+Создайте `.bat` (Windows) или `.sh` (Linux/Mac) файл:
+
+### Windows (run.bat)
+```batch
+@echo off
+set WAILS_API_BASE_URL=http://YOUR_SERVER_IP:8080
+start "" "Music Room.exe"
+```
+
+### Linux / Mac (run.sh)
+```bash
+#!/bin/bash
+export WAILS_API_BASE_URL=http://YOUR_SERVER_IP:8080
+./Music\ Room
+```
+
+---
+
+## 🧩 Основные возможности клиента
+
+- **WebSocket-подключение** к музыкальной комнате
+- **Просмотр текущего трека**
+- **Синхронизированный прогресс-бар**
+- **Возможность перематывать трек**
+- **Очередь видео** (добавление / удаление)
+- **Поиск видео** через YouTube API
+- **Копирование ID комнаты** по клику
+- **Автоматическое восстановление состояния** при подключении
+```
+
+---
+
+
